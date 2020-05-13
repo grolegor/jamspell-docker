@@ -1,7 +1,7 @@
 FROM ubuntu:latest as localized-ubuntu
 
 # generate locales (WA: for more info see https://github.com/bakwc/JamSpell/issues/17)
-RUN apt-get update && apt-get -y install locales && locale-gen en_US.UTF-8
+RUN DEBIAN_FRONTEND=noninteractive apt-get update && apt-get -yq install locales && locale-gen en_US.UTF-8
 
 # set locales
 ENV LANG en_US.UTF-8
@@ -13,7 +13,7 @@ FROM localized-ubuntu as builder
 WORKDIR /jamspell
 
 # install git and cmake
-RUN apt-get -y install git build-essential cmake
+RUN DEBIAN_FRONTEND=noninteractive apt-get -yq install git build-essential cmake
 
 # clone jamspell repo
 RUN git clone https://github.com/bakwc/JamSpell.git .
