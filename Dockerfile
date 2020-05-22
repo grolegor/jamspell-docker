@@ -30,6 +30,8 @@ RUN ./build/main/jamspell train alphabet.txt dataset.txt model.bin
 
 FROM localized-ubuntu
 
+RUN DEBIAN_FRONTEND=noninteractive apt-get update && apt-get -yq install curl
+
 ENV PORT=8080
 
 COPY --from=builder /jamspell/build/web_server/web_server /usr/bin/jamspell-server
